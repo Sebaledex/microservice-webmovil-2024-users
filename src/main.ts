@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice(AppModule, {
     transport: Transport.RMQ,
     options: {
-      urls: [process.env.AMQP_URL],
+      urls: [process.env.LOCAL_AMQP_URL],
       queue: RabbitMQ.UserQueue,
     },
   });
@@ -23,7 +23,8 @@ async function bootstrap() {
       disableErrorMessages: process.env.ENVIRONMENT === 'production',
     }),
   );
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  // app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+
   await app.listen();
   console.log('Microservice Users is listening');
 }

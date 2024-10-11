@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserSchema } from './schema/user.schema';
-import { USER } from 'src/common/models/models';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserController } from './user.controller';
+import { UserService } from './user.service';
+import { User, UserSchema } from './entity/user.entity';
 
 @Module({
   imports: [
-    MongooseModule.forFeatureAsync([
+    MongooseModule.forFeature([
       {
-        name: USER.name,
-        useFactory: () => UserSchema,
+        name: User.name,
+        schema: UserSchema,
       },
     ]),
   ],

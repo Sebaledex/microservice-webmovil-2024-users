@@ -19,8 +19,8 @@ export class UserController {
   }
 
   @MessagePattern(UserMsg.FIND_ONE)
-  findOne(@Payload() id: string) {
-    return this.userService.findOne(id);
+  findOne(@Payload() email: string) {
+    return this.userService.findOne(email);
   }
   @MessagePattern(UserMsg.UPDATE)
   update(@Payload() payload: any) {

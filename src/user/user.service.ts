@@ -3,12 +3,22 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { USER } from 'src/common/models/models';
 import { IUser } from 'src/common/interfaces/user.interface';
+import { User } from './entity/user.entity';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(USER.name) private readonly model: Model<IUser>) {}
+  constructor(@InjectModel(User.name) private model: Model<User>) {}
+
+  async findAll(): Promise<IUser[]> {
+    return await this.model.find();
+  }
+
+  async findOne(email: string) {
+    return await this.model.findOne({
+      email,
+    });
+  }
 
   async findByUsername(username: string) {
     return await this.model.findOne({ username });
@@ -19,18 +29,16 @@ export class UserService {
     return await bcrypt.hash(password, salt);
   }
 
-  async create(userDTO: CreateUserDto): Promise<IUser> {
+  async create(userDTO: CreateUserDto) {
     const hash = await this.hashPassword(userDTO.password);
     const newUser = new this.model({ ...userDTO, password: hash });
-    return await newUser.save();
-  }
 
-  async findAll(): Promise<IUser[]> {
-    return await this.model.find();
-  }
-
-  async findOne(id: string): Promise<IUser> {
-    return await this.model.findById(id);
+    try {
+      const savedUser = await newUser.save();
+      return savedUser;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async update(id: string, userDTO: UserDTO): Promise<IUser> {

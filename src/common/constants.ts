@@ -8,5 +8,4 @@ export enum UserMsg {
   FIND_ONE = 'FIND_USER',
   UPDATE = 'UPDATE_USER',
   DELETE = 'DELETE_USER',
-  VALID_USER = 'VALID_USER',
 }
