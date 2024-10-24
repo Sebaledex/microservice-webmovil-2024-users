@@ -8,11 +8,11 @@ export class UserDTO {
   readonly password: string;
 }
 
-export class UpdateUserDto extends PartialType(UserDTO) {}
-
 export class CreateUserDto {
   @IsEmail()
   readonly email: string;
   @IsString()
   readonly password: string;
 }
+
+export class UpdateUserDto extends PartialType(UserDTO) {}

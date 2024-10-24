@@ -1,8 +1,8 @@
-import { NestFactory, Reflector } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
+import { AppModule } from './app.module';
 import { RabbitMQ } from './common/constants';
-import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice(AppModule, {

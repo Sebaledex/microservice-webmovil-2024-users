@@ -37,7 +37,12 @@ export class UserService {
       const savedUser = await newUser.save();
       return savedUser;
     } catch (error) {
-      throw error;
+      if (error.code === 11000) {
+        return {
+          status: HttpStatus.CONFLICT,
+          msg: 'User already exists',
+        };
+      }
     }
   }
 
