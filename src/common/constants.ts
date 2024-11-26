@@ -9,4 +9,6 @@ export enum UserMsg {
   UPDATE = 'UPDATE_USER',
   DELETE = 'DELETE_USER',
   VALID_USER = 'VALID_USER',
+  UPDATE_ACCESS_TOKEN= 'update_access_token',
+  UPDATE_REFRESH_TOKEN = "UPDATEREFRESHTOKEN"
 }

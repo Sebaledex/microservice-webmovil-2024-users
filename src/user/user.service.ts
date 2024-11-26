@@ -43,11 +43,29 @@ export class UserService {
     return await this.model.findByIdAndUpdate(id, user, { new: true });
   }
 
+
+
+
   async delete(id: string) {
     await this.model.findByIdAndDelete(id);
     return {
       status: HttpStatus.OK,
       msg: 'Deleted',
     };
+  }
+
+  async updateAccessToken(userId: string, accessToken: string): Promise<IUser> {
+    return await this.model.findByIdAndUpdate(
+      userId,
+      { accessToken: accessToken },
+      { new: true } // Retorna el documento actualizado
+    );
+  }
+  async updateRefreshToken(userId: string, refresh_token: string): Promise<IUser> {
+    return await this.model.findByIdAndUpdate(
+      userId,
+      { refresh_token: refresh_token },
+      { new: true } // Retorna el documento actualizado
+    );
   }
 }

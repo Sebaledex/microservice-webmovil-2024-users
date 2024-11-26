@@ -28,6 +28,8 @@ export class UserController {
     return this.userService.update(payload.id, payload.userDTO);
   }
 
+
+
   @MessagePattern(UserMsg.DELETE)
   delete(@Payload() id: string) {
     return this.userService.delete(id);
@@ -45,5 +47,15 @@ export class UserController {
     if (user && isValidPassword) return user;
 
     return null;
+  }
+  @MessagePattern(UserMsg.UPDATE_ACCESS_TOKEN)
+  updateAccessToken(@Payload() payload: any) {
+    const { userId, accessToken } = payload;
+    return this.userService.updateAccessToken(userId, accessToken);
+  }
+  @MessagePattern(UserMsg.UPDATE_REFRESH_TOKEN)
+  updateRefreshToken(@Payload() payload: any) {
+    const { userId, refresh_token } = payload;
+    return this.userService.updateAccessToken(userId, refresh_token);
   }
 }
